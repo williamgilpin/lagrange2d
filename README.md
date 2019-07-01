@@ -14,6 +14,20 @@ The package can then be imported as follows:
 
 Please refer to the notebook `demos.nb` for example problems utilizing the various functions in the package. Briefly, capabilities include: Numerical integration of a "blob" of neighboring points, calculation of finite-time Lyapunov exponents and the spatial field of Kaplan-Yorke dimensions, and animation and plotting tools.
 
+## Example output
+
+Example Flow Field      |  Pathlines for particles in flow
+:-------------------------:|:-------------------------:
+![](resources/streamFig.png)	|	![](resources/pathFig.png)
+
+Transport field     |  Maximum finite-time Lyapunov exponents
+:-------------------------:|:-------------------------:
+![](resources/transportFig.png)	|	![](resources/ftlePlot.png)
+
+Kaplan-Yorke Fractal Dimension     |  Flushing time distribution
+:-------------------------:|:-------------------------:
+![](resources/kyfig.png)	|	![](resources/flushFig.png)
+
 ## Theoretical background
 
 The FTLE function in this package is based on research developed by the Haller lab at ETH Zurich. For theoretical background, please refer to the [review of Lagrangian coherent structures](https://www.annualreviews.org/doi/10.1146/annurev-fluid-010313-141322). For a MATLAB package that finds Lagrangian coherent structures using FTLE, please refer to [LCSTool](https://github.com/LCSETH/LCStool)
