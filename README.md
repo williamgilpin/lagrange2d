@@ -32,3 +32,11 @@ See figures above for examples of output plots.
 
 The FTLE function in this package is based on research developed by the Haller lab at ETH Zurich. For theoretical background, please refer to the [review of Lagrangian coherent structures](https://www.annualreviews.org/doi/10.1146/annurev-fluid-010313-141322). For a MATLAB package that finds Lagrangian coherent structures using FTLE, please refer to [LCSTool](https://github.com/LCSETH/LCStool)
 
+## Files included in this repository
+
+'lagrange2d.wl' the main package file
+`demos.nb` a notebook containing executable examples and outputs
+`/resources` contains example output images
+`/dev` contains temporary versions used for development
+`README.md` contains documentation
+`.gitignore` version control auxiliary file
