@@ -362,3 +362,24 @@ animateFlow[vfield_,seeds_,{t_,tlo_,thi_},{x_,xlo_,xhi_},{y_,ylo_,yhi_},frameRat
 	];
 	Export[filename,m,"FrameRate"->frameRate]
 ]
+
+
+fitVField::usage = 
+"
+Given an experimental velocity field dataset, fit a smooth velocity field function
+ using interpolation
+
+Arguments:\[IndentingNewLine]dataset : 5xN List of velocity field values {t, x, y, vx, vy} corresponding to
+		a 2D time-dependent vector field
+
+Returns:
+{vx, vy} : List of 2 functions
+	Two functions corresponding to the x and y components of the velocity field,
+	with call structures vx[t,x,y], vy[t,x,y]
+"
+
+fitVField[dataset_]:=Module[{formattedDataUX,formattedDataUY},
+	formattedDataUX={{#[[1]],#[[2]],#[[3]]},#[[4]]}&/@Transpose[dataset[[{1,2,3,4},1,All]]];
+	formattedDataUY={{#[[1]],#[[2]],#[[3]]},#[[4]]}&/@Transpose[dataset[[{1,2,3,5},1,All]]];
+	{vx,vy}=Interpolation/@{formattedDataUX,formattedDataUY}
+]

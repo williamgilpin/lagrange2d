@@ -14,6 +14,8 @@ Kaplan-Yorke Fractal Dimension     |  Flushing time distribution
 :-------------------------:|:-------------------------:
 ![](resources/kyfig.png)	|	![](resources/flushFig.png)
 
+
+
 ## Installation
 
 Download this repository. In your working notebook, make sure that `lagrange2d.wl` is on the path.
@@ -27,6 +29,12 @@ The package can then be imported as follows:
 Please refer to the notebook `demos.nb` for example problems utilizing the various functions in the package. Briefly, capabilities include: Numerical integration of a "blob" of neighboring points, calculation of finite-time Lyapunov exponents and the spatial field of Kaplan-Yorke dimensions, and animation and plotting tools.
 
 See figures above for examples of output plots.
+
+If you find this code useful, please consider citing the accompanying paper
+
+> Gilpin, William. "Lagrange2D: A Mathematica package for Lagrangian analysis of two-dimensional fluid flows" https://arxiv.org/abs/1908.00717
+
+
 
 ## Theoretical background
 
