@@ -4,7 +4,8 @@ ClearAll["findFTLE`*"];
 ClearAll["findFTLE`Private`*"];
 
 advectPoints::usage = 
-"Given a collection of initial conditions, advect them forward in time
+"Given a collection of initial conditions, advect them forward in time. 
+Returns a full set of interpolated solutions to the ODE
 
 Arguments:\[IndentingNewLine]seedPoints : N-ist of 2-Lists\[IndentingNewLine]	A list of starting points at which to initialize trajectories\[IndentingNewLine]vfield : Pair of functions in x,y\[IndentingNewLine]	Cartesian expression of a 2D vector field
 tlo : Real
@@ -20,6 +21,27 @@ advectPoints[ seedPoints_,vfield_,{t_,tlo_,thi_},x_,y_]:=Module[
 	memo1[x,y,t]:=vfield[[1]];
 	memo2[x,y,t]:=vfield[[2]];
 	s=NDSolve[{x'[t]==memo1[x[t],y[t],t],y'[t]==memo2[x[t],y[t],t],x[0]==x0,y[0]==y0},{x[t],y[t]},{t,tlo,thi}]/.seedRules;
+	s
+];
+
+
+advectPointsFinal::usage = 
+"Given a collection of initial conditions, advect them forward a fixed duration in time. 
+Returns only the final locations of the points.
+
+Arguments:\[IndentingNewLine]seedPoints : N-ist of 2-Lists\[IndentingNewLine]	A list of starting points at which to initialize trajectories\[IndentingNewLine]vfield : Pair of functions in x,y\[IndentingNewLine]	Cartesian expression of a 2D vector field
+tlo : Real
+	The time to start integration\[IndentingNewLine]thi : Real\[IndentingNewLine]	The time to stop integration
+
+Returns:
+s : List of Locations
+"
+advectPointsFinal[ seedPoints_,vfield_,{t_,tlo_,thi_},x_,y_]:=Module[
+	{seedRules,memo1,memo2,s},
+	seedRules={x0->#[[1]],y0->#[[2]]}&/@seedPoints;
+	memo1[x,y,t]:=vfield[[1]];
+	memo2[x,y,t]:=vfield[[2]];
+	s=NDSolveValue[{x'[t]==memo1[x[t],y[t],t],y'[t]==memo2[x[t],y[t],t],x[0]==x0,y[0]==y0},{x[thi],y[thi]},{t,0.99thi,thi}]/.seedRules;
 	s
 ];
 
@@ -134,13 +156,18 @@ findFTLEField[vfield_,seeds_,{t_,tlo_,thi_},x_,y_]:=Module[
 	{allTraj,startPts,stopPts,xMapPts,yMapPts,
 	xMap,yMap,fMat,FtF,ftf,ftle,
 	xloVal,xhiVal,yloVal,yhiVal,ftleVals,ftleField},
-	allTraj=advectPoints[ seeds,vfield,{t,tlo,thi},x,y];
+	
+	
+	(*allTraj=advectPoints[ seeds,vfield,{t,tlo,thi},x,y];
 	{x[t],y[t]}/.allTraj;
-	(* add a cleaned outputs step *)
 	startPts=Evaluate[{x[t],y[t]}/.allTraj]/.t->tlo;
 	stopPts = Evaluate[{x[t],y[t]}/.allTraj]/.t->thi;
 	startPts=startPts[[1;;All,1,1;;All]];
-	stopPts=stopPts[[1;;All,1,1;;All]];
+	stopPts=stopPts[[1;;All,1,1;;All]];*)
+	startPts=seeds;
+	stopPts=advectPointsFinal[ seeds,vfield,{t,tlo,thi},x,y];
+	{x[t],y[t]}/.allTraj;
+	
 	xMapPts=MapThread[{#1,#2}&,{startPts,Transpose[stopPts][[1]]}];
 	yMapPts=MapThread[{#1,#2}&,{startPts,Transpose[stopPts][[2]]}];
 	xMap = Interpolation[xMapPts];
