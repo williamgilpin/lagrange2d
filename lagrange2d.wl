@@ -41,7 +41,7 @@ advectPointsFinal[ seedPoints_,vfield_,{t_,tlo_,thi_},x_,y_]:=Module[
 	seedRules={x0->#[[1]],y0->#[[2]]}&/@seedPoints;
 	memo1[x,y,t]:=vfield[[1]];
 	memo2[x,y,t]:=vfield[[2]];
-	s=NDSolveValue[{x'[t]==memo1[x[t],y[t],t],y'[t]==memo2[x[t],y[t],t],x[0]==x0,y[0]==y0},{x[thi],y[thi]},{t,0.99thi,thi}]/.seedRules;
+	s=NDSolveValue[{x'[t]==memo1[x[t],y[t],t],y'[t]==memo2[x[t],y[t],t],x[0]==x0,y[0]==y0},{x[thi],y[thi]},{t,0.999999thi,thi}]/.seedRules;
 	s
 ];
 
